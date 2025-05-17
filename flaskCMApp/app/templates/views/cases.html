@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block header %}
+    {% block title %} Case Management Case List{% endblock %}
+{% endblock %}
+
+{% block page_content %}
+    <h1> Case Management Case List </h1>
+    <table>
+            <tr>
+                <th scope = "col">Case ID  </th>
+                <th scope = "col">Case Title   </th>
+                <th scope = "col">Status  </th>
+                <th scope = "col">Due By Date  </th>
+            </tr>
+            {% for case in cases %}
+                <tr>
+                    <td>{{case.id}}</td>
+                    <td>{{case.cmTitle}}</td>
+                    <td>{{case.cmStatus}}</td>
+                    <td>{{case.cmDueDate}}</td>
+                </tr>
+            {% endfor %}
+        </table>
+{% endblock %}
