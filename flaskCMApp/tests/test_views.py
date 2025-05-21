@@ -47,7 +47,38 @@ class FlaskViewsTestCases(unittest.TestCase):
             }
         ]
         mock_getData.return_value = mock_cases
-
         response = self.client.get('/cases')
-
         self.assertIn("Mocked Title", response.get_data(as_text=True))
+
+
+    @patch('app.main.views.getData.get_data')
+    def test_case_200(self, mock_getData):
+        '''
+        /case/1 returns a 200 value
+        '''
+        mock_case = {
+                "id": 1,
+                "cmTitle": "Mocked Title",
+                "cmDescription": "Mocked Description",
+                "cmStatus": "Open",
+                "cmDueDate": "2025-05-06T20:30:00Z"
+            }
+        mock_getData.return_value = mock_case
+        response = self.client.get('/case/1')
+        self.assertEqual(response.status_code, 200)
+
+    @patch('app.main.views.getData.get_data')
+    def test_case_with_mocked_data(self, mock_getData):
+        '''
+        /case/1 uses mocked getData and renders expected content
+        '''
+        mock_case = {
+                "id": 1,
+                "cmTitle": "Mocked Title",
+                "cmDescription": "Mocked Description",
+                "cmStatus": "Open",
+                "cmDueDate": "2025-05-06T20:30:00Z"
+            }
+        mock_getData.return_value = mock_case
+        response = self.client.get('/case/1')
+        self.assertIn("Mocked", response.get_data(as_text=True))

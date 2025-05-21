@@ -17,3 +17,11 @@ def cases():
     cases = getData.get_data(apiURL)
     response = make_response(render_template('views/cases.html', cases = cases))
     return response
+
+@main.route('/case/<int:id>', methods=['GET'])
+def case(id):
+    id = str(id)
+    apiURL = "http://localhost:8000/api/v1/task/"+id
+    case = getData.get_data(apiURL)
+    response = make_response(render_template('views/case.html', case = case))
+    return response
